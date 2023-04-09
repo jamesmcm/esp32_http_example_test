@@ -1,0 +1,30 @@
+[package]
+name = "simulationtest"
+version = "0.1.0"
+authors = ["jmcmurray"]
+edition = "2021"
+resolver = "2"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+[features]
+pio = ["esp-idf-sys/pio"]
+
+[dependencies]
+esp-idf-sys = { version = "0.32.1", features = ["binstart"] }
+embedded-svc = "0.24.0"
+esp-idf-svc = { path = "../forks/esp-idf-svc", features = ["experimental", "nightly", "alloc"] }
+esp-idf-hal = "0.40.1"
+anyhow = "1.0.70"
+embassy-executor = {path = "embassy/embassy-executor", features = ["nightly", "log", "arch-std", "executor-thread",  "integrated-timers"]}
+embassy-time = {path = "embassy/embassy-time", features = ["nightly", "log", "std", "unstable-traits"]}
+embedded-hal-async = { version = "=0.2.0-alpha.0"}
+
+
+[build-dependencies]
+embuild = "0.31.1"
